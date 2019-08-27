@@ -1,0 +1,53 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=4
+
+_global_script_classes=[ {
+"base": "Area2D",
+"class": "BulletBase",
+"language": "GDScript",
+"path": "res://bullets/BulletBase.gd"
+}, {
+"base": "Node",
+"class": "Effects",
+"language": "GDScript",
+"path": "res://fx/Effects.gd"
+}, {
+"base": "Area2D",
+"class": "EnemyBase",
+"language": "GDScript",
+"path": "res://enemies/EnemyBase.gd"
+} ]
+_global_script_class_icons={
+"BulletBase": "",
+"Effects": "",
+"EnemyBase": ""
+}
+
+[application]
+
+config/name="shootemup-1h"
+run/main_scene="res://levels/Level0.tscn"
+config/icon="res://icon.png"
+
+[autoload]
+
+Library="*res://core/Library.gd"
+
+[layer_names]
+
+2d_physics/layer_1="Player"
+2d_physics/layer_2="Foes"
+2d_physics/layer_3="Walls"
+2d_physics/layer_4="Bullets"
+2d_physics/layer_5="BluntWeapons"
+
+[rendering]
+
+environment/default_environment="res://default_env.tres"

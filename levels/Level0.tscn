@@ -1,0 +1,96 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://levels/Level0.gd" type="Script" id=1]
+[ext_resource path="res://enemies/EnemyFacingTurret.tscn" type="PackedScene" id=2]
+[ext_resource path="res://weapons/WeaponCannon.tscn" type="PackedScene" id=3]
+[ext_resource path="res://bullets/HomingMissile.tscn" type="PackedScene" id=4]
+[ext_resource path="res://spawner/Spawner.tscn" type="PackedScene" id=5]
+[ext_resource path="res://enemies/BounceEnemy.tscn" type="PackedScene" id=6]
+[ext_resource path="res://bullets/Bullet.tscn" type="PackedScene" id=7]
+[ext_resource path="res://enemies/EnemyKamikaze.tscn" type="PackedScene" id=8]
+
+[node name="Level" type="Node2D" groups=[
+"space_ship",
+]]
+script = ExtResource( 1 )
+
+[node name="Bullets" type="Node2D" parent="." groups=[
+"bullet",
+]]
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Enemies" type="Node2D" parent="." groups=[
+"enemy",
+]]
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="EnemyFacingTurret" parent="Enemies" instance=ExtResource( 2 )]
+position = Vector2( 791.545, 162.169 )
+
+[node name="WeaponCannon" parent="Enemies/EnemyFacingTurret" instance=ExtResource( 3 )]
+fire_rate = 0.5
+
+[node name="HomingMissile" parent="Enemies/EnemyFacingTurret/WeaponCannon" instance=ExtResource( 4 )]
+collision_mask = 1
+
+[node name="Spawn" type="Node2D" parent="."]
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Spawner0" parent="Spawn" instance=ExtResource( 5 )]
+position = Vector2( 268.554, 320.617 )
+max_enemies = 30
+
+[node name="BounceEnemy" parent="Spawn/Spawner0" instance=ExtResource( 6 )]
+speed = 50.0
+damage = 100
+delegated_free = true
+
+[node name="WeaponCannon" parent="Spawn/Spawner0/BounceEnemy" instance=ExtResource( 3 )]
+fire_rate = 1.0
+
+[node name="Bullet" parent="Spawn/Spawner0/BounceEnemy/WeaponCannon" instance=ExtResource( 7 )]
+collision_mask = 1
+damage = 1
+direction = Vector2( 0, -1 )
+
+[node name="Spawner2" parent="Spawn" instance=ExtResource( 5 )]
+position = Vector2( 520.077, 317.293 )
+max_enemies = 30
+
+[node name="BounceEnemy" parent="Spawn/Spawner2" instance=ExtResource( 6 )]
+speed = 50.0
+health = {
+"damage": 0,
+"max": 10
+}
+damage = 100
+delegated_free = true
+
+[node name="WeaponCannon" parent="Spawn/Spawner2/BounceEnemy" instance=ExtResource( 3 )]
+fire_rate = 0.5
+
+[node name="HomingMissile2" parent="Spawn/Spawner2/BounceEnemy/WeaponCannon" instance=ExtResource( 4 )]
+position = Vector2( 271.468, -155.125 )
+collision_mask = 1
+
+[node name="Spawner1" parent="Spawn" instance=ExtResource( 5 )]
+position = Vector2( 776.033, 390.424 )
+max_enemies = 30
+
+[node name="EnemyKamikaze" parent="Spawn/Spawner1" instance=ExtResource( 8 )]
+
+[node name="WeaponCannon2" parent="Spawn/Spawner1/EnemyKamikaze" instance=ExtResource( 3 )]
+fire_rate = 0.5
+
+[node name="Bullet" parent="Spawn/Spawner1/EnemyKamikaze/WeaponCannon2" instance=ExtResource( 7 )]
+collision_mask = 1
+velocity = 500
+damage = 1
+direction = Vector2( -1, 0 )
+life_time = 5.0
